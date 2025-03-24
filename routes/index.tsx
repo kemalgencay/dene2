@@ -25,12 +25,12 @@ async function getPosts(): Promise<PostAttributes[]> {
   return posts;
 }
 // Importing two new std lib functions to help with parsing front matter and joining file paths.
-import { extractJson} from "jsr:@std/front-matter";
+import { extractYaml} from "jsr:@std/front-matter";
 import { join } from "$std/path/mod.ts";
 
 async function getPost(slug: string): Promise<PostAttributes | null> {
   const text = await Deno.readTextFile(join("./posts", `${slug}.md`));
-  const { attrs, body } = extractJson(text) as { attrs: { title: string; published_at: string; snippet: string }, body: string };
+  const { attrs, body } = extractYaml(text) as { attrs: { title: string; published_at: string; snippet: string }, body: string };
   return {
     slug,
     title: attrs.title,
