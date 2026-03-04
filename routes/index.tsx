@@ -1,5 +1,47 @@
 import { Handlers } from "$fresh/server.ts";
 import { getPosts, Post } from "../utils/posts.ts";
+import { Head } from "$fresh/runtime.ts";
+import Layout from "../components/Layout.tsx";
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Kemal Gençay'ın sitesi</title>
+      </Head>
+      <Layout>
+        <div class="p-4 mx-auto max-w-screen-md">
+          <img
+            src="/zuzukemal.jpg"
+            class="w-50 h-32"
+            alt="Zuzu Kemal"
+          />
+          <p class="my-6">
+            <p>
+              Ben Kemal, 1967'den beri{" "}
+              <i>computer*</i>üstünde yenilikleri izliyor ve uyguluyorum.
+            </p>
+            <br></br>
+
+            <p>
+              Çeşitli konulardaki görüşlerimi, deneyimlerimi, özlü sözleri,
+              burada paylaşmaktayım. Çizgim Atatürk çizgisidir, ikinci vazifemiz
+              devrimleri Anadolu'ya yaymaktır.<br></br>
+              <br></br>
+              <br></br>
+            </p>
+            <p>*bilgisayar değil, bilgi soyuttur sayılamaz.</p>
+          </p>
+          <img
+            src="/ogrenmek.jpg"
+            class="w-50 h-32"
+            alt="öğrenmek"
+          />
+        </div>
+      </Layout>
+    </>
+  );
+}
 
 export const handler: Handlers<Post[]> = {
   async GET(_req, ctx) {
@@ -7,20 +49,10 @@ export const handler: Handlers<Post[]> = {
     return ctx.render(posts);
   },
 };
-import { PageProps } from "$fresh/server.ts";
+//import { PageProps } from "$fresh/server.ts";
 
-export default function BlogIndexPage(props: PageProps<Post[]>) {
-  const posts = props.data;
-  return (
-    <main class="max-w-screen-md px-4 pt-16 mx-auto">
-      <h1 class="text-5xl font-bold">Blog</h1>
-      <div class="mt-8">
-        {posts.map((post) => <PostCard key={post.slug} post={post} />)}
-      </div>
-    </main>
-  );
-}
-function PostCard(props: { post: Post }) {
+
+export function PostCard(props: { post: Post }) {
   const { post } = props;
   return (
     <div class="py-8 border(t gray-200)">
